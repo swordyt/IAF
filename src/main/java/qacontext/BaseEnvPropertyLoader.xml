@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- <bean id="propertyConfigurerHyper" class="hyper.spring.ext.PropertyPlaceholderConfigurer"> 
+		<property name="order" value="1" /> <property name="systemPropertiesModeName" 
+		value="SYSTEM_PROPERTIES_MODE_OVERRIDE" /> <property name="ignoreResourceNotFound" 
+		value="true" /> <property name="ignoreUnresolvablePlaceholders" value="true" 
+		/> <property name="rootLocation"> <value>classpath:properties/env_dir.properties</value> 
+		</property> <property name="childLocations"> <list> <value>classpath:properties/framework/jdbc-common.properties</value> 
+		<value>classpath:properties/framework/${DB_ID}/jdbc.properties</value> <value>classpath:properties/framework/${DB_ID}/cache.properties</value> 
+		<value>classpath:properties/framework/qamp_jdbc.properties</value> <value>classpath:properties/env_db.properties</value> 
+		<value>classpath:properties/framework/${DB_ID}/ssh.properties</value> </list> 
+		</property> <property name="encryptedProps"> <set> <value>hyper.qa.mysql.password</value> 
+		</set> </property> </bean> -->
+	<!-- <context:property-placeholder location="classpath*:properties/framework/jdbc-common.properties"/>加载配置文件 
+		<context:property-placeholder location="classpath*:properties/framework/qa/jdbc.properties"/>加载配置文件 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<!-- PropertyPlaceholderConfigurer类中有个locations属性，接收的是一个数组，即我们可以在下面配好多个properties文件 -->
+			<list>
+				<value>classpath:properties/framework/jdbc-common.properties</value>
+				<value>classpath:properties/framework/qa/jdbc.properties</value>
+				<value>classpath:properties/framework/dev/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+</beans>

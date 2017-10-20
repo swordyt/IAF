@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Data> 
+  <datasource ID="id1502434784613" cls="com.yinting.test.TestStatus" method="test" time="1502434785" status="exception"> 
+    <paramerter type="java.lang.String" ID="1502434784614">yinting</paramerter>  
+    <paramerter type="java.lang.String" ID="1502434784614">26</paramerter> 
+  </datasource> 
+</Data>

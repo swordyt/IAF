@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- properties -->
+	<!-- -->
+	<import resource="classpath*:qacontext/BaseEnvPropertyLoader.xml" />
+
+	<!-- jdbc -->
+	<import
+		resource="classpath:qacontext/framework/jdbc/datasource/datasource-context-qa.xml" />
+	<!-- <import resource="classpath:qacontext/framework/jdbc/datasource/datasource-context-qamp.xml" 
+		/> -->
+
+	<!-- hibernate -->
+
+	<!-- ibaits -->
+	<import
+		resource="classpath:qacontext/framework/jdbc/ibaits/context-sessionFactory.xml" />
+	<import
+		resource="classpath:qacontext/framework/jdbc/ibaits/ibaits-client-context-qa.xml" />
+	<!-- <import resource="classpath:qacontext/framework/jdbc/ibaits/ibaits-client-context-qamp.xml" 
+		/> -->
+
+	<!-- txmanager -->
+	<import
+		resource="classpath:qacontext/framework/jdbc/txmanager/txmanager-context.xml" />
+
+	<!-- spring -->
+	<!-- <import resource="classpath:qacontext/framework/service/service-framework-context.xml" 
+		/> <import resource="classpath:qacontext/framework/service/service-redis-context.xml" 
+		/> <import resource="classpath:qacontext/framework/service/service-memcache-context.xml" 
+		/> -->
+
+	<!-- dao -->
+	<!-- <import resource="classpath:qacontext/framework/orm/dao/context-framework-orm-dao.xml" 
+		/> -->
+
+	<!-- manager -->
+	<!-- <import resource="classpath:qacontext/framework/orm/dao/dao-ibatis-qamp-context.xml" 
+		/> <import resource="classpath:qacontext/framework/orm/mng/qacontext-main-orm-mng.xml" 
+		/> -->
+
+	<!-- service -->
+	<!-- <import resource="classpath:qacontext/service/qacontext-main-service.xml" 
+		/> -->
+	<bean id="handle" class="com.yinting.jdbc.DbHandller">
+		<property name="sqlMapClient" ref="sqlMapClientQa" />
+	</bean>
+	<context:component-scan base-package="com"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" 
+			/> -->
+	</context:component-scan>
+
+</beans>
