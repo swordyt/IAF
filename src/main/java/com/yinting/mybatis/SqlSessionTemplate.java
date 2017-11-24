@@ -173,7 +173,7 @@ public class SqlSessionTemplate extends org.mybatis.spring.SqlSessionTemplate {
 		String env = System.getProperty("ENV");
 		String dataSourceKey = SqlSessionContextHolder.getDataSourceKey();
 
-		if (env.equals("dev")) {
+//		if (env.equals("dev")) {
 			Properties pro = new Properties();
 			String[] claNames = classInfo.split("\\.");
 			String claName = claNames[claNames.length - 2];// 类名
@@ -184,7 +184,8 @@ public class SqlSessionTemplate extends org.mybatis.spring.SqlSessionTemplate {
 			} else {
 				try {// key.properties 中存在该key对应的value时使用配置，不存在使用key本身
 					pro.load(new FileInputStream(
-							new File("src/main/resources/config/dev/key.properties")));
+							new File("src/main/resources/config/"+env+"/key.properties")));
+				// new File("src/main/resources/config/dev/key.properties")));
 					String keyValue = pro.getProperty(key + ".key");
 					if (keyValue != null) {
 						key = keyValue;
@@ -213,7 +214,7 @@ public class SqlSessionTemplate extends org.mybatis.spring.SqlSessionTemplate {
 				contextHolder.set(key);
 				return newDatasource(url, username, password);
 			}
-		}
+//		}
 		return null;
 	}
 

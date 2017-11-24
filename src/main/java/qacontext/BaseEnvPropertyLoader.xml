@@ -29,7 +29,7 @@
 			<list>
 				<value>classpath:properties/framework/jdbc-common.properties</value>
 				<value>classpath:properties/framework/qa/jdbc.properties</value>
-				<value>classpath:properties/framework/dev/jdbc.properties</value>
+				<!--  <value>classpath:properties/framework/dev/jdbc.properties</value>-->
 			</list>
 		</property>
 	</bean>

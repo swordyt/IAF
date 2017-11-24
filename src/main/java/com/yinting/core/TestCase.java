@@ -115,6 +115,9 @@ public abstract class TestCase extends BaseTestCase {
 
 	// 执行接口的几种方式
 	public void send(Map data) {
+		if(data == null){
+			data=new HashMap();
+		}
 		data.putAll(this.tmpData);
 		this.data = data;
 		HttpResponse response = (HttpResponse) driver.request(this.data).invoke();
