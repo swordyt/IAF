@@ -1,6 +1,4 @@
 package com.swordyt.core;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -14,6 +12,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.ITestAnnotation;
 
 import com.swordyt.core.annotation.Driver;
+import com.swordyt.tools.PropertiesTool;
 
 public class DataProviderClass {
 	private static final ThreadLocal<String> type = new ThreadLocal<String>();
@@ -24,10 +23,8 @@ public class DataProviderClass {
 	public DataDriver dataDriver(Method method)
 			throws FileNotFoundException, IOException, ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (pro == null || mapping == null) {
-			pro = new Properties();
-			pro.load(new FileInputStream("src/main/java/config.properties"));
-			String dataDriven = pro.getProperty("swordyt.data.dataDriven");
+		if (mapping == null) {
+			String dataDriven = PropertiesTool.getProperty("swordyt.data.dataDriven");
 			if (dataDriven == null) {
 				throw new RuntimeException("DATADRIVER未配置。");
 			}

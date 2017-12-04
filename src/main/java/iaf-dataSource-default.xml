@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                    http://www.springframework.org/schema/tx 
+                    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                    http://www.springframework.org/schema/jee 
+                    http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+               		http://www.springframework.org/schema/aop
+					http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                    http://www.springframework.org/schema/context 
+                    http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="dataSourceQa" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="shutdown">
+		<constructor-arg>
+			<bean class="com.zaxxer.hikari.HikariConfig">
+				<property name="driverClassName" value="${swordyt.jdbc.Mysql.driverClassName}" />
+				<property name="jdbcUrl" value="${swordyt.jdbc.Mysql.url}" />
+				<property name="username" value="${swordyt.jdbc.Mysql.username}" />
+				<property name="password" value="${swordyt.jdbc.Mysql.password}" />
+				<property name="connectionTestQuery" value="SELECT 1" />
+				<property name="connectionTimeout" value="30000" />
+				<property name="idleTimeout" value="60000" />
+				<property name="maxLifetime" value="1800000" />
+				<property name="maximumPoolSize" value="10" />
+				<property name="minimumIdle" value="1" />
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<!-- 该处配置的key需要与ENV名字相同 -->
+	<bean id="dataSource" class="com.swordyt.mybatis.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry value-ref="dataSourceQa" key="qa"></entry>
+				<!-- <entry value-ref="dataSourceDev" key="dev"></entry> -->
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dataSourceQa"></property>
+	</bean>
+	<!-- 初始化系统sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:qacontext/framework/jdbc/ibaits/sqlmap-config.xml" />
+		<property name="mapperLocations" value="classpath*:com/nonobank/mapping/**/*.xml" />
+	</bean>
+	<!-- 初始化自定义sqlSessionFactory -->
+	<bean id="sqlSessionFactoryQa" class="com.swordyt.mybatis.SqlSessionFactoryBean">
+		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
+		<property name="dataSource" ref="dataSourceQa" />
+		<!-- 自动扫描me/gacl/mapping/目录下的所有SQL映射的xml文件, 省掉Configuration.xml里的手工配置 value="classpath:me/gacl/mapping/*.xml"指的是classpath(类路径)下me.gacl.mapping包中的所有xml文件 
+			UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描 -->
+		<property name="configLocation"
+			value="classpath:qacontext/framework/jdbc/ibaits/sqlmap-config.xml" />
+		<property name="mapperLocations" value="classpath*:com/nonobank/mapping/**/*.xml" />
+	</bean>
+	
+	<!-- 
+	<bean id="sqlSessionFactoryDev" class="com.swordyt.mybatis.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceQa" />
+		<property name="configLocation"
+			value="classpath:qacontext/framework/jdbc/ibaits/sqlmap-config.xml" />
+		<property name="mapperLocations" value="classpath*:com/nonobank/mapping/**/*.xml" />
+	</bean> -->
+	
+	
+	<bean id="sqlSessionTemplate" class="com.nonobank.core.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<property name="targetSqlSessionFactory">
+			<map>
+				<entry value-ref="sqlSessionFactoryQa" key="qa" />
+				<!-- <entry value-ref="sqlSessionFactoryDev" key="dev" /> -->
+			</map>
+		</property>
+	</bean>
+	<!-- 配置扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描me.gacl.dao这个包以及它的子包下的所有映射接口类 -->
+		<property name="basePackage" value="com.nonobank.dao" />
+		<!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" 
+			/> -->
+		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate" />
+	</bean>
+
+
+
+</beans>

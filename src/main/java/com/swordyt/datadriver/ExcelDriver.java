@@ -120,7 +120,7 @@ public class ExcelDriver extends DataDriver {
 	// 初始化Excel数据
 	private void initPara(String pathname, String sheet) {
 		String dirPath = PropertiesTool
-				.fillPath(System.getProperty("swordyt.qa.datadriver.basedir"));
+				.fillPath(PropertiesTool.getProperty("swordyt.data.dataDriver.basedir"));
 		String path = dirPath + pathname;
 		File file = new File(path);
 		if (!file.isFile()) {

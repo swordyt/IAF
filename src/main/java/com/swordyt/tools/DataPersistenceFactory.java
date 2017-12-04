@@ -40,7 +40,7 @@ public class DataPersistenceFactory extends BaseTestCase {
 	private static List<String> ids;
 
 	public DataPersistenceFactory() {
-		fileXml = new File(PropertiesTool.fillPath(System.getProperty("swordyt.qa.dataPersistence.location")));
+		fileXml = new File(PropertiesTool.fillPath(System.getProperty("swordyt.data.dataPersistence.location")));
 		// fileBean = new File("src/main/java/pool.xml");
 		reader = new SAXReader();
 		format = OutputFormat.createPrettyPrint();
