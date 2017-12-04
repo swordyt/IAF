@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nonobank.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.nonobank.domain.Order">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="user_merchant_id" jdbcType="VARCHAR" property="userMerchantId" />
+    <result column="apply_date" jdbcType="VARCHAR" property="applyDate" />
+    <result column="apply_time" jdbcType="VARCHAR" property="applyTime" />
+    <result column="work_date" jdbcType="VARCHAR" property="workDate" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="ref_product_id" jdbcType="BIGINT" property="refProductId" />
+    <result column="ref_product_name" jdbcType="VARCHAR" property="refProductName" />
+    <result column="card_idx_no" jdbcType="VARCHAR" property="cardIdxNo" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+    <result column="currency" jdbcType="VARCHAR" property="currency" />
+    <result column="quty" jdbcType="BIGINT" property="quty" />
+    <result column="quty_scale" jdbcType="INTEGER" property="qutyScale" />
+    <result column="confirm_quty" jdbcType="BIGINT" property="confirmQuty" />
+    <result column="confirm_quty_scale" jdbcType="INTEGER" property="confirmQutyScale" />
+    <result column="confirm_amount" jdbcType="BIGINT" property="confirmAmount" />
+    <result column="confirm_currency" jdbcType="VARCHAR" property="confirmCurrency" />
+    <result column="nav" jdbcType="VARCHAR" property="nav" />
+    <result column="settle_type" jdbcType="VARCHAR" property="settleType" />
+    <result column="fee_type" jdbcType="VARCHAR" property="feeType" />
+    <result column="fee" jdbcType="BIGINT" property="fee" />
+    <result column="ref_fee_type" jdbcType="VARCHAR" property="refFeeType" />
+    <result column="ref_fee" jdbcType="BIGINT" property="refFee" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="out_biz_no" jdbcType="VARCHAR" property="outBizNo" />
+    <result column="melon_type" jdbcType="VARCHAR" property="melonType" />
+    <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="trans_code" jdbcType="VARCHAR" property="transCode" />
+    <result column="sub_trans_code" jdbcType="VARCHAR" property="subTransCode" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="asset_last_confirm" jdbcType="VARCHAR" property="assetLastConfirm" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, mobile, user_merchant_id, apply_date, apply_time, work_date, 
+    product_id, product_type, product_name, ref_product_id, ref_product_name, card_idx_no, 
+    amount, currency, quty, quty_scale, confirm_quty, confirm_quty_scale, confirm_amount, 
+    confirm_currency, nav, settle_type, fee_type, fee, ref_fee_type, ref_fee, discount, 
+    out_biz_no, melon_type, merchant_id, trans_code, sub_trans_code, source, asset_last_confirm, 
+    flag, status, note, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fts_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from fts_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.nonobank.domain.Order">
+    insert into fts_order (id, user_id, user_name, 
+      mobile, user_merchant_id, apply_date, 
+      apply_time, work_date, product_id, 
+      product_type, product_name, ref_product_id, 
+      ref_product_name, card_idx_no, amount, 
+      currency, quty, quty_scale, 
+      confirm_quty, confirm_quty_scale, confirm_amount, 
+      confirm_currency, nav, settle_type, 
+      fee_type, fee, ref_fee_type, 
+      ref_fee, discount, out_biz_no, 
+      melon_type, merchant_id, trans_code, 
+      sub_trans_code, source, asset_last_confirm, 
+      flag, status, note, 
+      create_time, modify_time)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{userMerchantId,jdbcType=VARCHAR}, #{applyDate,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=VARCHAR}, #{workDate,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, 
+      #{productType,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{refProductId,jdbcType=BIGINT}, 
+      #{refProductName,jdbcType=VARCHAR}, #{cardIdxNo,jdbcType=VARCHAR}, #{amount,jdbcType=BIGINT}, 
+      #{currency,jdbcType=VARCHAR}, #{quty,jdbcType=BIGINT}, #{qutyScale,jdbcType=INTEGER}, 
+      #{confirmQuty,jdbcType=BIGINT}, #{confirmQutyScale,jdbcType=INTEGER}, #{confirmAmount,jdbcType=BIGINT}, 
+      #{confirmCurrency,jdbcType=VARCHAR}, #{nav,jdbcType=VARCHAR}, #{settleType,jdbcType=VARCHAR}, 
+      #{feeType,jdbcType=VARCHAR}, #{fee,jdbcType=BIGINT}, #{refFeeType,jdbcType=VARCHAR}, 
+      #{refFee,jdbcType=BIGINT}, #{discount,jdbcType=DECIMAL}, #{outBizNo,jdbcType=VARCHAR}, 
+      #{melonType,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, #{transCode,jdbcType=VARCHAR}, 
+      #{subTransCode,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{assetLastConfirm,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nonobank.domain.Order">
+    insert into fts_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="userMerchantId != null">
+        user_merchant_id,
+      </if>
+      <if test="applyDate != null">
+        apply_date,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="workDate != null">
+        work_date,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="refProductId != null">
+        ref_product_id,
+      </if>
+      <if test="refProductName != null">
+        ref_product_name,
+      </if>
+      <if test="cardIdxNo != null">
+        card_idx_no,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="quty != null">
+        quty,
+      </if>
+      <if test="qutyScale != null">
+        quty_scale,
+      </if>
+      <if test="confirmQuty != null">
+        confirm_quty,
+      </if>
+      <if test="confirmQutyScale != null">
+        confirm_quty_scale,
+      </if>
+      <if test="confirmAmount != null">
+        confirm_amount,
+      </if>
+      <if test="confirmCurrency != null">
+        confirm_currency,
+      </if>
+      <if test="nav != null">
+        nav,
+      </if>
+      <if test="settleType != null">
+        settle_type,
+      </if>
+      <if test="feeType != null">
+        fee_type,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="refFeeType != null">
+        ref_fee_type,
+      </if>
+      <if test="refFee != null">
+        ref_fee,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="outBizNo != null">
+        out_biz_no,
+      </if>
+      <if test="melonType != null">
+        melon_type,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="transCode != null">
+        trans_code,
+      </if>
+      <if test="subTransCode != null">
+        sub_trans_code,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="assetLastConfirm != null">
+        asset_last_confirm,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMerchantId != null">
+        #{userMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        #{applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null">
+        #{workDate,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="refProductId != null">
+        #{refProductId,jdbcType=BIGINT},
+      </if>
+      <if test="refProductName != null">
+        #{refProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardIdxNo != null">
+        #{cardIdxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="quty != null">
+        #{quty,jdbcType=BIGINT},
+      </if>
+      <if test="qutyScale != null">
+        #{qutyScale,jdbcType=INTEGER},
+      </if>
+      <if test="confirmQuty != null">
+        #{confirmQuty,jdbcType=BIGINT},
+      </if>
+      <if test="confirmQutyScale != null">
+        #{confirmQutyScale,jdbcType=INTEGER},
+      </if>
+      <if test="confirmAmount != null">
+        #{confirmAmount,jdbcType=BIGINT},
+      </if>
+      <if test="confirmCurrency != null">
+        #{confirmCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="nav != null">
+        #{nav,jdbcType=VARCHAR},
+      </if>
+      <if test="settleType != null">
+        #{settleType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null">
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=BIGINT},
+      </if>
+      <if test="refFeeType != null">
+        #{refFeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="refFee != null">
+        #{refFee,jdbcType=BIGINT},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="outBizNo != null">
+        #{outBizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="melonType != null">
+        #{melonType,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="transCode != null">
+        #{transCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subTransCode != null">
+        #{subTransCode,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="assetLastConfirm != null">
+        #{assetLastConfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nonobank.domain.Order">
+    update fts_order
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMerchantId != null">
+        user_merchant_id = #{userMerchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        apply_date = #{applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null">
+        work_date = #{workDate,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="refProductId != null">
+        ref_product_id = #{refProductId,jdbcType=BIGINT},
+      </if>
+      <if test="refProductName != null">
+        ref_product_name = #{refProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardIdxNo != null">
+        card_idx_no = #{cardIdxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="quty != null">
+        quty = #{quty,jdbcType=BIGINT},
+      </if>
+      <if test="qutyScale != null">
+        quty_scale = #{qutyScale,jdbcType=INTEGER},
+      </if>
+      <if test="confirmQuty != null">
+        confirm_quty = #{confirmQuty,jdbcType=BIGINT},
+      </if>
+      <if test="confirmQutyScale != null">
+        confirm_quty_scale = #{confirmQutyScale,jdbcType=INTEGER},
+      </if>
+      <if test="confirmAmount != null">
+        confirm_amount = #{confirmAmount,jdbcType=BIGINT},
+      </if>
+      <if test="confirmCurrency != null">
+        confirm_currency = #{confirmCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="nav != null">
+        nav = #{nav,jdbcType=VARCHAR},
+      </if>
+      <if test="settleType != null">
+        settle_type = #{settleType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null">
+        fee_type = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=BIGINT},
+      </if>
+      <if test="refFeeType != null">
+        ref_fee_type = #{refFeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="refFee != null">
+        ref_fee = #{refFee,jdbcType=BIGINT},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="outBizNo != null">
+        out_biz_no = #{outBizNo,jdbcType=VARCHAR},
+      </if>
+      <if test="melonType != null">
+        melon_type = #{melonType,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="transCode != null">
+        trans_code = #{transCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subTransCode != null">
+        sub_trans_code = #{subTransCode,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="assetLastConfirm != null">
+        asset_last_confirm = #{assetLastConfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nonobank.domain.Order">
+    update fts_order
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      user_merchant_id = #{userMerchantId,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=VARCHAR},
+      work_date = #{workDate,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      product_type = #{productType,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      ref_product_id = #{refProductId,jdbcType=BIGINT},
+      ref_product_name = #{refProductName,jdbcType=VARCHAR},
+      card_idx_no = #{cardIdxNo,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=BIGINT},
+      currency = #{currency,jdbcType=VARCHAR},
+      quty = #{quty,jdbcType=BIGINT},
+      quty_scale = #{qutyScale,jdbcType=INTEGER},
+      confirm_quty = #{confirmQuty,jdbcType=BIGINT},
+      confirm_quty_scale = #{confirmQutyScale,jdbcType=INTEGER},
+      confirm_amount = #{confirmAmount,jdbcType=BIGINT},
+      confirm_currency = #{confirmCurrency,jdbcType=VARCHAR},
+      nav = #{nav,jdbcType=VARCHAR},
+      settle_type = #{settleType,jdbcType=VARCHAR},
+      fee_type = #{feeType,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=BIGINT},
+      ref_fee_type = #{refFeeType,jdbcType=VARCHAR},
+      ref_fee = #{refFee,jdbcType=BIGINT},
+      discount = #{discount,jdbcType=DECIMAL},
+      out_biz_no = #{outBizNo,jdbcType=VARCHAR},
+      melon_type = #{melonType,jdbcType=VARCHAR},
+      merchant_id = #{merchantId,jdbcType=VARCHAR},
+      trans_code = #{transCode,jdbcType=VARCHAR},
+      sub_trans_code = #{subTransCode,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      asset_last_confirm = #{assetLastConfirm,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
