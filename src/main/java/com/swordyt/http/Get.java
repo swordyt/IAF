@@ -3,6 +3,7 @@ package com.swordyt.http;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -10,7 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-public class Get extends HttpRequest {
+public class Get implements Request {
 	private final HttpClient client = new DefaultHttpClient();
 	private HttpResponse response;
 	private final HttpGet get;
@@ -21,7 +22,6 @@ public class Get extends HttpRequest {
 		get = new HttpGet();
 	}
 
-	@Override
 	public HttpRequest body(String name, String value) {
 		if (this.url != null && this.url.contains("?")) {
 			this.url += "&" + name + "=" + value;
@@ -30,13 +30,11 @@ public class Get extends HttpRequest {
 		}
 		return null;
 	}
-	@Override
 	public HttpRequest header(String name, String value) {
 		this.get.addHeader(name, value);
 		return null;
 	}
 
-	@Override
 	public com.swordyt.http.HttpResponse invoke() {
 		try {
 			get.setURI(new URI(url));
@@ -52,6 +50,16 @@ public class Get extends HttpRequest {
 			e.printStackTrace();
 		}
 		return new com.swordyt.http.HttpResponse(this.response);
+	}
+
+	public Request bodies(Map<String, String> bodyes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Request headeres(Map<String, String> headeres) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

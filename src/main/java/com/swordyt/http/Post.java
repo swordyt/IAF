@@ -14,7 +14,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 
-public class Post extends HttpRequest {
+public class Post implements Request {
 
 	private final String url;
 	private final HttpPost post;
@@ -29,19 +29,16 @@ public class Post extends HttpRequest {
 		this.url = url;
 	}
 
-	@Override
 	public HttpRequest body(String name, String value) {
 		formparams.add(new BasicNameValuePair(name, value));
 		return null;
 	}
 
-	@Override
 	public HttpRequest header(String name, String value) {
 		this.post.addHeader(name, value);
 		return null;
 	}
 
-	@Override
 	public HttpResponse invoke() {
 		try {
 			post.setURI(new URI(url));
@@ -59,6 +56,16 @@ public class Post extends HttpRequest {
 			e.printStackTrace();
 		}
 		return this.response;
+	}
+
+	public Request bodies(Map<String, String> bodyes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Request headeres(Map<String, String> headeres) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

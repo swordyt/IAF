@@ -59,22 +59,6 @@ public class HttpResponse{
 		this.response = new Html(this.httpResponse);
 		return this.response;
 	}
-
-	public HttpResponse assertStatus(String expect) {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-	public String status() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public HttpResponse assertHeader(String header, String expect) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public String header(String name) {
 		return this.httpResponse.getFirstHeader(name).getValue();
 	}
